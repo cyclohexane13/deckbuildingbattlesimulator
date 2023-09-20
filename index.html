@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>덱 빌딩 게임 첫번째 전투 시뮬레이터</title>
+<link rel="stylesheet" href="css/css.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="inner">
+            <div id="simulator" style="display: none;">
+                <h2>전투 시뮬레이터</h2>
+                <br>
+                <div class="characters">
+                    <div class="player">
+                        <p> &nbsp;</p>
+                        <img src="img/character.webp" height="250px" width="auto"></img>
+                        <p id="player_damage"> 받은 데미지 : 00 </p>
+                        <p id="player_guard"> 방어 : 0 </p>
+                        <p id="player_vnr"> 취약 : 0 </p>
+                        <p id="breath"> 호흡 : 0 </p>
+                        <p id="cost"> 남은 코스트 : 0</p>
+                    </div>
+                        <div id="enemy_area">
+                        <div class="enemy">
+                            <p class="enemy_intend"> 공격 </p>
+                            <img src="img/enemy.webp"  height="250px" width="auto">
+                            <p class="enemy_HP"> 남은 체력 : 00 </p>
+                            <p class="enemy_guard"> 방어 : 0 </p>
+                            <p class="enemy_str"> 힘 : 0</p>
+                            <p class="enemy_wound"> 부상 : 0 </p>
+                            
+                        </div>
+                        <div class="enemy">
+                            <p class="enemy_intend"> 공격 </p>
+                            <img src="img/enemy.webp"  height="250px" width="auto">
+                            <p class="enemy_HP"> 남은 체력 : 00 </p>
+                            <p class="enemy_guard"> 방어 : 0 </p>
+                            <p class="enemy_str"> 힘 : 0</p>
+                            <p class="enemy_wound"> 부상 : 0 </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="cards_area">
+                    <div id="deck">
+                        <p id="turns">현재 턴 : 1</p>
+                        <p id="decks">남은 덱 : 0</p>
+                        <img src="img/deck.png" alt="" width="100px" height="auto">
+                    </div>
+                    <div id="cards">
+                        <div class="card" onclick="selectCard(0)">
+                            <span class="idx">0</span>
+                            <p class="card_name">어택</p>
+                            <p class="card_cost">1 코스트</p>
+                            <p class="card_text"> 대상에게 6 데미지를 줍니다.</p>
+                        </div>
+                        <div class="card" onclick="selectCard(1)">
+                            <span class="idx">1</span>
+                            <p class="card_name">어택</p>
+                            <p class="card_cost">1 코스트</p>
+                            <p class="card_text"> 대상에게 6 데미지를 줍니다.</p>
+                        </div>
+                        <div class="card" onclick="selectCard(2)">
+                            <span class="idx">2</span>
+                            <p class="card_name">어택</p>
+                            <p class="card_cost">1 코스트</p>
+                            <p class="card_text"> 대상에게 6 데미지를 줍니다.</p>
+                        </div>
+                        <div class="card" onclick="selectCard(3)">
+                            <span class="idx">3</span>
+                            <p class="card_name">어택</p>
+                            <p class="card_cost">1 코스트</p>
+                            <p class="card_text"> 대상에게 6 데미지를 줍니다.</p>
+                        </div>
+                        <div class="card" onclick="selectCard(4)">
+                            <span class="idx">4</span>
+                            <p class="card_name">어택</p>
+                            <p class="card_cost">1 코스트</p>
+                            <p class="card_text"> 대상에게 6 데미지를 줍니다.</p>
+                        </div>
+                    </div>
+                    <div id="grave">
+                        <p id="graves">사용한 카드 : 0</p>
+                        <img src="img/tomb.png" alt="" width="100px" height="auto">
+                        <br>
+                        <button id="end_turn_button" onclick="endTurn()"> 턴 종료 </button>
+                    </div>
+                </div>
+                <div id="logs">
+                    <p name="log" id="log" cols="30" rows="10"> - 전투 로그 -</p>
+                </div>
+            </div>
+            <div id="setting">
+                <br>
+                <h2>전투 시뮬레이터 초기 설정</h2>
+                <br>
+                <div id="card_settings">
+                    <div class="card_setter">
+                        <p class="card_name_set">어택</p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_1_cost_set" value="1" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span>cost</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_1_damage_set" value="6" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span>damage</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_1_copy_set" value="4" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span> 장 </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card_setter">
+                        <p class="card_name_set">가드</p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_2_cost_set" value="1" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span>cost</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_2_guard_set" value="4" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span>guard</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_2_copy_set" value="3" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span> 장 </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card_setter">
+                        <p class="card_name_set">찌르기</p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_3_cost_set" value="1" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span>cost</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_3_damage_set" value="4" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span>damage</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_3_copy_set" value="1" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span> 장 </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card_setter">
+                        <p class="card_name_set">호흡</p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_4_cost_set" value="0" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span>cost</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_4_breath_set" value="1" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span>breath</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" class="number_input" name="card_4_copy_set" value="1" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                </td>
+                                <td>
+                                    <span> 장 </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="enemy_settings">
+                    <p class="enemy_name_set">구울</p>
+                    <div class="enemy_set">
+                        
+                        <div class="enemy_spec_set">
+                            <p>스탯</p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="number" class="number_input" name="min_hp" value="13" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                    </td>
+                                    <td>
+                                        <span>최소 체력</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="number" class="number_input" name="max_hp" value="15" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                    </td>
+                                    <td>
+                                        <span>최대 체력</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="enemy_spec_set">
+                            <p>패턴 1</p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="number" class="number_input" name="intend_1_damage_set" value="6" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                    </td>
+                                    <td>
+                                        <span>데미지</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="enemy_spec_set">
+                            <p>패턴 2</p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="number" class="number_input" name="intend_2_damage_set" value="4" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                    </td>
+                                    <td>
+                                        <span>데미지</span>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        <input type="number" class="number_input" name="intend_2_vnr_set" value="1" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                    </td>
+                                    <td>
+                                        <span>취약</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="enemy_spec_set">
+                            <p>패턴 3</p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="number" class="number_input" name="intend_3_guard_set" value="4" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57">
+                                    </td>
+                                    <td>
+                                        <span>방어도</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button onclick="startSim()">시작</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

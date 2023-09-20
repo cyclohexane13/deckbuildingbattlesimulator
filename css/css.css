@@ -1,0 +1,149 @@
+.container {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    margin-top: 150px;
+    margin-bottom: 200px;
+}
+
+.inner{
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1250px;
+    min-height: 500px;
+    top : 150px;
+    background-color: rgb(141, 194, 255);
+}
+
+.characters{
+    width: 80%;
+    margin: 0 auto;
+    height: fit-content;
+    margin-top: 50px;
+    background-color: rgb(236, 255, 212);
+    display: flex;
+    justify-content: space-between;
+}
+
+p{
+    line-height: 0.6;
+
+}
+
+.player{
+    margin : 10px;
+    margin-right: 50px;
+}
+
+.enemy{
+    margin : 5px;
+}
+
+#enemy_area{
+    display: flex;
+    justify-content: center;
+}
+
+#cards_area{
+    display: flex;
+    background-color: yellowgreen;
+    justify-content: space-between;
+
+}
+
+#deck{
+    margin: 10px;
+}
+
+#cards{
+    margin: 10px;
+    display: flex;
+}
+
+#grave {
+    margin: 10px;
+}
+
+.card{
+    width: 150px;
+    
+    height: 200px;
+    border: 1px solid black;
+    padding: 10px;
+    
+    
+
+}
+
+.card > p {
+    line-height: normal;
+        
+}
+
+.card > span{
+    display: none;
+}
+
+#end_turn_button{
+    margin-top: 40px;
+    width: 100px;
+    height: 40px;
+}
+
+#logs{
+    padding-left: 10%;
+    padding-right: 10%;
+    width: 80%;
+    height: 300px;
+    overflow-y: scroll;
+    text-align: left;
+    
+}
+
+#log{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: aliceblue;
+    line-height: normal;
+}
+
+#setting{
+    width: 80%;
+    margin: 0 auto;
+    height: fit-content;
+    margin-top: 50px;
+    background-color: rgb(236, 255, 212);
+}
+
+#card_settings{
+    display: flex;
+    padding: 10px;
+}
+
+.card_setter{
+    width: 150px;
+    
+    height: 200px;
+    border: 1px solid black;
+    padding: 10px;
+}
+.number_input{
+    width: 40px;
+}
+
+#enemy_settings{
+    padding: 10px;
+}
+
+.enemy_spec_set{
+    width: 150px;
+    
+    height: 200px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.enemy_set{
+    display: flex;
+}
